@@ -1,0 +1,50 @@
+---
+title: "Quarto 1"
+author: "Kinson Gao"
+format: html
+---
+
+
+```{r}
+#| message: false
+#| echo: false
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r}
+#| echo: false
+penguins
+```
+
+```{r}
+#| echo: false
+#| warning: false
+
+penguins |>
+  drop_na(bill_length_mm, bill_depth_mm, body_mass_g, species) |>
+  ggplot(
+    aes(
+      x = bill_length_mm,
+      y = bill_depth_mm,
+      color = species,
+      size = body_mass_g
+    )
+  ) +
+  geom_point(alpha = 0.8) +
+  scale_size(range = c(2, 8), guide = "none") +
+  labs(
+    title = "Penguin Bills by Species",
+    subtitle = "Bill length and depth measurements from Palmer Penguins",
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    color = "Species",
+    caption = "Source: Palmer Penguins dataset"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "top"
+  )
+```
